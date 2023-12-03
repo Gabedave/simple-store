@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './schemas/product.schema';
+import { Product, ProductObject } from './schemas/product.schema';
 import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -19,8 +19,8 @@ export class ProductsService {
     return this.productModel.insertMany(createProductDto);
   }
 
-  async findAll() {
-    return this.productModel.find({ deletedAt: null }).lean();
+  async findAll(filter?: Partial<ProductObject>) {
+    return this.productModel.find({ ...filter, deletedAt: null }).lean();
   }
 
   async findProductById(id: Types.ObjectId) {

@@ -9,7 +9,7 @@ export type OrderDocument = HydratedDocument<Order>;
 @Schema({ timestamps: true, toObject: { transform: true } })
 export class Order {
   @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
-  user: User;
+  user: Types.ObjectId;
 
   @Prop({
     required: true,
@@ -20,7 +20,7 @@ export class Order {
       },
     ],
   })
-  products: { productId: Product; quantity: number }[];
+  products: { productId: Types.ObjectId; quantity: number }[];
 
   @Prop({ required: true })
   totalAmount: number;

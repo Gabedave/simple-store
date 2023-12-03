@@ -6,7 +6,4 @@ export class CreateOrderDto {
 
   @IsArray()
   products: { productId: string; quantity: number }[];
-
-  @IsNumber()
-  totalAmount: number;
 }

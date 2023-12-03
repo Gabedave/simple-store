@@ -1,17 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Order } from './schemas/order.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { OrderStatus } from './order.interface';
+import { ProductsService } from 'src/products/products.service';
 
 @Injectable()
 export class OrdersService {
-  constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<Order>,
+    private readonly productService: ProductsService,
+  ) {}
 
-  async create(createOrderDto: CreateOrderDto) {
-    return this.orderModel.create(createOrderDto);
+  async placeOrder(createOrderDto: CreateOrderDto) {
+    const productObjectIds = createOrderDto.products.map(
+      (_p) => new Types.ObjectId(_p.productId),
+    );
+    const allProducts = await this.productService.findAll({
+      _id: { $in: productObjectIds } as any,
+    });
+
+    const excessOrderedProductNames = [];
+    let totalAmount = 0;
+    for (const product of createOrderDto.products) {
+      const dbProduct = allProducts.find(
+        (_p) => _p._id.toString() === product.productId,
+      );
+      if (dbProduct && product.quantity > dbProduct?.quantity_available) {
+        excessOrderedProductNames.push(dbProduct.name);
+      }
+      totalAmount += product.quantity * dbProduct.price;
+    }
+
+    if (excessOrderedProductNames.length) {
+      throw new BadRequestException(
+        `Failed to place order. The following products exceeded the available quantities [${excessOrderedProductNames.join(
+          ', ',
+        )}]`,
+      );
+    }
+
+    return this.orderModel.create({ ...createOrderDto, totalAmount });
   }
 
   async findAll() {
@@ -31,5 +62,10 @@ export class OrdersService {
       status,
       cancelledAt: status === 'cancelled' ? new Date(Date.now()) : undefined,
     });
+  }
+
+  // access to repository method directly in order to seed the database
+  async seedMany(orders: any) {
+    return this.orderModel.insertMany(orders);
   }
 }
