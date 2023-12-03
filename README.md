@@ -6,7 +6,9 @@ Simple store is a simple store application that allows you to manage your produc
 
 ## Technologies Used
 - Nestjs
+- Typescript
 - MongoDb
+- Jest
 
 ## Installation
 
@@ -27,8 +29,22 @@ or Run the following command to seed all tables
 $ npx nestjs-command seed:all
 ```
 
+## Tests
+Comprehensive tests are written using [Jest](https://jestjs.io/docs/getting-started) especially for the Orders Module. Run all tests using
+```bash
+$ npm run test
+```
+
 ## Usage
-The store api can be consumed by the following endpoints. All endpoints except login and signup are protected using jwt authentication (Bearer token)
+The store api can be consumed by the following endpoints. All endpoints except login and signup are protected using jwt authentication (Bearer token). Token is returned on signup or login.
+
+This api performs the following features
+- Signup (`email`, `password`, `name`)
+- Login (`email` and `password`)
+- JWT Authentication
+- Create, Update, Delete and Get all products
+- Create orders for user
+- Update order status `pending`, `processing`, `shipped`, `delivered`, `cancelled`
 
 ### Authentication
 
@@ -48,10 +64,13 @@ The store api can be consumed by the following endpoints. All endpoints except l
 - POST /orders
 - GET /orders/:id
 - PATCH /orders/:id
-- DELETE /orders/:id
 
-Refer to the postman documentation for full API documentation
+Refer to the [postman documentation](https://api.postman.com/collections/18551524-05246fd6-1668-47e0-a242-ed11cd91d34a?access_key=PMAT-01HGREF727XP9YSGFVQ63MQJYD) for full API documentation or access the swagger docs on [http://localhost:3000/api](http://localhost:3000/api/)
+
+## Next Steps
+- Create user types like admin, customer for equivalent authorizations
+- Automatic deduction of product count when an order is placed and reverting when order is cancelled
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licenced under [MIT licensed](LICENSE).
