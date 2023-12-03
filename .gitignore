@@ -29,3 +29,8 @@ lerna-debug.log*
 
 # IDE - VSCode
 .vscode/*
+
+# sensitive data
+.env
+.env.*
+!.env.example
