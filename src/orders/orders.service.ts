@@ -1,11 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Order } from './schemas/order.schema';
 import { Model, Types } from 'mongoose';
 import { OrderStatus } from './order.interface';
-import { ProductsService } from 'src/products/products.service';
+import { ProductsService } from '../products/products.service';
 
 @Injectable()
 export class OrdersService {

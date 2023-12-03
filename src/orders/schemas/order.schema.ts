@@ -1,7 +1,5 @@
-import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { Product } from 'src/products/schemas/product.schema';
-import { User } from 'src/users/schemas/user.schema';
 import { OrderStatus } from '../order.interface';
 
 export type OrderDocument = HydratedDocument<Order>;

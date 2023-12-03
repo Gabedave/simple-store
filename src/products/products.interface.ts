@@ -1,11 +1,12 @@
-export type ProductCategoryType =
-  | 'table'
-  | 'chair'
-  | 'sofa'
-  | 'bed'
-  | 'bench'
-  | 'toilet'
-  | 'kitchen'
-  | 'dining_table'
-  | 'cabinet'
-  | 'other';
+export enum ProductCategoryType {
+  Table = 'table',
+  Chair = 'chair',
+  Sofa = 'sofa',
+  Bed = 'bed',
+  Bench = 'bench',
+  Toilet = 'toilet',
+  Kitchen = 'kitchen',
+  Dining_Table = 'dining_table',
+  Cabinet = 'cabinet',
+  Other = 'other',
+}
