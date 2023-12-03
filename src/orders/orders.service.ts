@@ -27,7 +27,8 @@ export class OrdersService {
       const dbProduct = allProducts.find(
         (_p) => _p._id.toString() === product.productId,
       );
-      if (dbProduct && product.quantity > dbProduct?.quantity_available) {
+      if (!dbProduct) continue;
+      if (product.quantity > dbProduct?.quantity_available) {
         excessOrderedProductNames.push(dbProduct.name);
       }
       totalAmount += product.quantity * dbProduct.price;
@@ -57,10 +58,14 @@ export class OrdersService {
   }
 
   async updateOrderStatus(id: string, status: OrderStatus) {
-    return this.orderModel.findByIdAndUpdate(id, {
-      status,
-      cancelledAt: status === 'cancelled' ? new Date(Date.now()) : undefined,
-    });
+    return this.orderModel.findByIdAndUpdate(
+      id,
+      {
+        status,
+        cancelledAt: status === 'cancelled' ? new Date(Date.now()) : null,
+      },
+      { returnDocument: 'after' },
+    );
   }
 
   // access to repository method directly in order to seed the database

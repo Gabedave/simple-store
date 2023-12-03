@@ -1,9 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateOrderDto } from './create-order.dto';
-import { IsEnum } from 'class-validator';
-import { OrderStatus } from '../order.interface';
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { OrderStatusEnum } from '../order.interface';
 
 export class UpdateOrderDto {
-  @IsEnum(['pending', 'processing', 'shipped', 'delivered', 'cancelled'])
-  status: OrderStatus;
+  @IsNotEmpty()
+  @IsEnum(OrderStatusEnum, { message: (hello) => 'must be on' + hello })
+  status: OrderStatusEnum;
 }
