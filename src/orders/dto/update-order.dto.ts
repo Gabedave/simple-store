@@ -3,6 +3,6 @@ import { OrderStatusEnum } from '../order.interface';
 
 export class UpdateOrderDto {
   @IsNotEmpty()
-  @IsEnum(OrderStatusEnum, { message: (hello) => 'must be on' + hello })
+  @IsEnum(OrderStatusEnum)
   status: OrderStatusEnum;
 }

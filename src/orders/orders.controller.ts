@@ -26,7 +26,7 @@ export class OrdersController {
 
   @Get()
   async getAllOrders(@Request() req) {
-    return this.ordersService.findAllOrdersForUser(req.sub);
+    return this.ordersService.findAllOrdersForUser(req.user.sub);
   }
 
   @Get(':id')
