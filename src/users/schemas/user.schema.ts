@@ -4,7 +4,7 @@ import { Order } from 'src/orders/entities/order.entity';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: true, toObject: { transform: true } })
 export class User {
   @Prop({ required: true })
   name: string;
@@ -17,12 +17,8 @@ export class User {
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Order' }] })
   orders?: Order[];
-
-  @Prop()
-  createdAt: Date;
-
-  @Prop()
-  updatedAt: Date;
 }
+
+export type UserObject = User & { _id: Types.ObjectId };
 
 export const UserSchema = SchemaFactory.createForClass(User);

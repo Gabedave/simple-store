@@ -12,33 +12,45 @@ Simple store is a simple store application that allows you to manage your produc
 
 ```bash
 $ npm install
-```
-
-## Running the app
-
-```bash
-# development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
-
+## Seeding the database
+Run the following commands to seed each table
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npx nestjs-command seed:user
+$ npx nestjs-command seed:products
+$ npx nestjs-command seed:orders
 ```
+or Run the following command to seed all tables
+```bash
+$ npx nestjs-command seed:all
+```
+
+## Usage
+The store api can be consumed by the following endpoints. All endpoints except login and signup are protected using jwt authentication (Bearer token)
+
+### Authentication
+
+- POST /auth/login
+- POST /auth/signup
+- GET /auth/me
+
+### Products
+
+- GET /products
+- GET /products/:id
+- DELETE /products/:id
+
+### Orders
+
+- GET /orders
+- POST /orders
+- GET /orders/:id
+- PATCH /orders/:id
+- DELETE /orders/:id
+
+Refer to the postman documentation for full API documentation
 
 ## License
 

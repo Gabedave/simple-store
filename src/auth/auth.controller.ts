@@ -13,10 +13,14 @@ import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthGuard } from './auth.guard';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UsersService,
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -29,7 +33,7 @@ export class AuthController {
 
   @Post('signup')
   async signUp(
-    @Body(new ValidationPipe())
+    @Body()
     createUserDto: CreateUserDto,
   ) {
     return this.authService.signUp(createUserDto);
@@ -39,5 +43,11 @@ export class AuthController {
   @Get('profile')
   async getProfile(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('me')
+  async getFullUser(@Request() req) {
+    return this.userService.getCleanUser({ email: req.user.username });
   }
 }

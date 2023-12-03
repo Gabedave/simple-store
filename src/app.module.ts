@@ -7,6 +7,8 @@ import configuration from './config/configuration';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OrdersModule } from './orders/orders.module';
 import { AuthModule } from './auth/auth.module';
+import { SeedsModule } from './seeds/seeds.module';
+import { CommandModule } from 'nestjs-command';
 
 @Module({
   imports: [
@@ -22,10 +24,12 @@ import { AuthModule } from './auth/auth.module';
       }),
       inject: [ConfigService],
     }),
+    CommandModule,
     UsersModule,
     ProductsModule,
     OrdersModule,
     AuthModule,
+    SeedsModule,
   ],
   controllers: [AppController],
 })

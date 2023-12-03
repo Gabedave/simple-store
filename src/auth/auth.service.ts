@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { UserDocument } from 'src/users/schemas/user.schema';
+import { UserDocument, UserObject } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +24,7 @@ export class AuthService {
       throw new UnauthorizedException('User does not exist');
     }
 
-    if (await this.comparePasswords(pass, user.hashedPassword)) {
+    if (!(await this.comparePasswords(pass, user.hashedPassword))) {
       throw new UnauthorizedException('Invalid login details');
     }
 
@@ -54,7 +54,7 @@ export class AuthService {
     return this.generateAuthToken(user);
   }
 
-  private async generateAuthToken(user: UserDocument) {
+  private async generateAuthToken(user: UserObject) {
     const payload = { sub: user._id, username: user.email };
 
     return {
