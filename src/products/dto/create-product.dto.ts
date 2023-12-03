@@ -1,4 +1,11 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ProductCategoryType } from '../products.interface';
 
 export class CreateProductDto {
@@ -11,23 +18,14 @@ export class CreateProductDto {
   @IsNumber()
   price: number;
 
+  @IsOptional()
   @IsString()
   image?: string;
 
   @IsNumber()
   quantity_available: number;
 
-  @IsEnum([
-    'table',
-    'chair',
-    'sofa',
-    'bed',
-    'bench',
-    'toilet',
-    'kitchen',
-    'dining_table',
-    'cabinet',
-    'other',
-  ])
-  category?: ProductCategoryType[];
+  @IsArray()
+  @IsEnum(ProductCategoryType, { each: true })
+  category?: Array<ProductCategoryType>;
 }
