@@ -73,7 +73,7 @@ This api performs the following features
 - GET /orders/:id
 - PATCH /orders/:id
 
-Refer to the [postman documentation](https://api.postman.com/collections/18551524-05246fd6-1668-47e0-a242-ed11cd91d34a?access_key=PMAT-01HGREF727XP9YSGFVQ63MQJYD) for full API documentation or access the swagger docs on [http://localhost:3000/api](http://localhost:3000/api/)
+Refer to the [postman documentation](https://api.postman.com/collections/18551524-cea0b581-ffb0-48da-8738-a5c5d7283af6?access_key=PMAT-01HGRMNPHXH1CYGBXW1NEZP7GN) for full API documentation or access the swagger docs on [http://localhost:3000/api](http://localhost:3000/api/)
 
 ## Next Steps
 - Create user types like admin, customer and equivalent authorizations
