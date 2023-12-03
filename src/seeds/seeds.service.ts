@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Command } from 'nestjs-command';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
-import { Product } from 'src/products/schemas/product.schema';
-import { ProductsService } from 'src/products/products.service';
-import { Order } from 'src/orders/schemas/order.schema';
+import { Product } from '../products/schemas/product.schema';
+import { ProductsService } from '../products/products.service';
+import { Order } from '../orders/schemas/order.schema';
 import { Types } from 'mongoose';
-import { OrdersService } from 'src/orders/orders.service';
+import { OrdersService } from '../orders/orders.service';
 
 @Injectable()
 export class SeedsService {
