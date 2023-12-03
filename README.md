@@ -11,14 +11,22 @@ Simple store is a simple store application that allows you to manage your produc
 - Jest
 
 ## Installation
+**!Important**: Add env variable to file `.env` using to format provided in [`./.env.example`](./.env.example) 
 
 ```bash
 $ npm install
 $ npm run start
 ```
 
+### Docker
+Or use the docker alternative
+```bash
+$ docker build -t simple-store .
+$ docker run --rm -p 3000:3000 simple-store
+```
+
 ## Seeding the database
-Run the following commands to seed each table
+Run the following commands in the project root directory to seed each table
 ```bash
 $ npx nestjs-command seed:user
 $ npx nestjs-command seed:products
@@ -68,7 +76,7 @@ This api performs the following features
 Refer to the [postman documentation](https://api.postman.com/collections/18551524-05246fd6-1668-47e0-a242-ed11cd91d34a?access_key=PMAT-01HGREF727XP9YSGFVQ63MQJYD) for full API documentation or access the swagger docs on [http://localhost:3000/api](http://localhost:3000/api/)
 
 ## Next Steps
-- Create user types like admin, customer for equivalent authorizations
+- Create user types like admin, customer and equivalent authorizations
 - Automatic deduction of product count when an order is placed and reverting when order is cancelled
 
 ## License
