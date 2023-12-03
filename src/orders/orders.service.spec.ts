@@ -153,10 +153,14 @@ describe('OrdersService', () => {
 
       await ordersService.updateOrderStatus(orderId, status);
 
-      expect(orderModelFindByIdAndUpdateSpy).toHaveBeenCalledWith(orderId, {
-        status,
-        cancelledAt: expect.any(Date),
-      });
+      expect(orderModelFindByIdAndUpdateSpy).toHaveBeenCalledWith(
+        orderId,
+        {
+          status,
+          cancelledAt: expect.any(Date),
+        },
+        expect.anything(),
+      );
     });
   });
 });
